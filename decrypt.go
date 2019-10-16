@@ -87,7 +87,7 @@ type UserInfo struct {
 // ssk 微信 session_key
 func DecryptUserInfo(rawData, encryptedData, signature, iv, ssk string) (*UserInfo, error) {
 
-	if ok := validateSignature(signature, rawData, ssk); !ok {
+	if ok := validateSignature(signature, rawData + ssk); !ok {
 		return nil, errors.New("failed to validate signature")
 	}
 
